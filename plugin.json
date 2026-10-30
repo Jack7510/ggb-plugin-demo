@@ -1,0 +1,18 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ggb-plugin-demo",
+  "version": "0.0.1",
+  "description": "Construct and verify native 2D GeoGebra artifacts with a local CLI.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "GeoGebra Plugin Demo",
+        "shortDescription": "原生二维构图、独立重载与真实拖动核验",
+        "defaultPrompt": [
+          "使用 ggb-demo-construction 作三角形 ABC，取 AB 中点 M，连接 CM，将 M 和 CM 标红并显示点名。"
+        ]
+      },
+      "onboardingSkill": "./skills/setup/SKILL.md"
+    }
+  }
+}

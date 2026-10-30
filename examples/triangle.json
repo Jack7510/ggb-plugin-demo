@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 2,
+  "title": "Triangle complete teaching case",
+  "source": "作三角形 ABC，取 AB 的中点 M，连接 CM。将 M 和 CM 标红，显示点名。拖动 A 后检查中点关系和中线联动，保存可重载的 GGB、核验报告和截图。",
+  "choices": [
+    "初始坐标 A=(0,0)、B=(6,0)、C=(2,4) 是演示选择，不是题目给定条件。"
+  ],
+  "requirements": [
+    {
+      "id": "geometry",
+      "description": "Triangle, midpoint and median have native dependencies."
+    },
+    {
+      "id": "appearance",
+      "description": "M and CM are red; point names are shown."
+    },
+    {
+      "id": "dragA",
+      "description": "通过真实鼠标拖动 A 后核验中点关系与 CM 联动。"
+    }
+  ],
+  "program": [
+    {
+      "label": "A",
+      "expression": "(0,0)"
+    },
+    {
+      "label": "B",
+      "expression": "(6,0)"
+    },
+    {
+      "label": "C",
+      "expression": "(2,4)"
+    },
+    {
+      "label": "tri",
+      "expression": "Polygon(A,B,C)"
+    },
+    {
+      "label": "M",
+      "expression": "Midpoint(A,B)"
+    },
+    {
+      "label": "CM",
+      "expression": "Segment(C,M)"
+    }
+  ],
+  "styles": [
+    {
+      "label": "M",
+      "requirement": "appearance",
+      "color": "#FF0000",
+      "labelVisible": true
+    },
+    {
+      "label": "CM",
+      "requirement": "appearance",
+      "color": "#FF0000"
+    },
+    {
+      "label": "A",
+      "requirement": "appearance",
+      "labelVisible": true
+    },
+    {
+      "label": "B",
+      "requirement": "appearance",
+      "labelVisible": true
+    },
+    {
+      "label": "C",
+      "requirement": "appearance",
+      "labelVisible": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "pointA",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "A",
+      "type": "point",
+      "parents": [],
+      "coordinates": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "pointB",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "B",
+      "type": "point",
+      "parents": [],
+      "coordinates": [
+        6,
+        0
+      ]
+    },
+    {
+      "id": "pointC",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "C",
+      "type": "point",
+      "parents": [],
+      "coordinates": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "triangle",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "tri",
+      "type": "triangle",
+      "parents": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "midpoint",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "M",
+      "type": "point",
+      "parents": [
+        "A",
+        "B"
+      ],
+      "coordinates": [
+        3,
+        0
+      ]
+    },
+    {
+      "id": "median",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "CM",
+      "type": "segment",
+      "parents": [
+        "C",
+        "M"
+      ]
+    },
+    {
+      "id": "midpointRelation",
+      "requirement": "geometry",
+      "kind": "boolean",
+      "expression": "AreEqual(M,Midpoint(A,B))"
+    },
+    {
+      "id": "nondegenerate",
+      "requirement": "geometry",
+      "kind": "boolean",
+      "expression": "Area(tri)>0"
+    }
+  ],
+  "view": [
+    -2,
+    8,
+    -2,
+    6
+  ],
+  "outputs": [
+    "A",
+    "B",
+    "C",
+    "tri",
+    "M",
+    "CM"
+  ],
+  "interactions": [
+    {
+      "id": "moveA",
+      "requirement": "dragA",
+      "kind": "drag",
+      "label": "A",
+      "from": [
+        0,
+        0
+      ],
+      "to": [
+        -1,
+        1
+      ],
+      "checks": [
+        "midpointRelation",
+        "median"
+      ]
+    }
+  ]
+}

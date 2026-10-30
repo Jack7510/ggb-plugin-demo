@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 2,
+  "title": "Triangle static technical subcase",
+  "source": "Technical subcase only: create triangle ABC, midpoint M of AB, segment CM, color M and CM red, show point names, export and independently reload. No dragging requirement. This is not the full teaching case.",
+  "choices": [
+    "Demonstration initial coordinates: A=(0,0), B=(6,0), C=(2,4). Mouse dragging is outside this minimal request."
+  ],
+  "requirements": [
+    {
+      "id": "geometry",
+      "description": "Triangle, midpoint and median have native dependencies."
+    },
+    {
+      "id": "appearance",
+      "description": "M and CM are red; point names are shown."
+    }
+  ],
+  "program": [
+    {
+      "label": "A",
+      "expression": "(0,0)"
+    },
+    {
+      "label": "B",
+      "expression": "(6,0)"
+    },
+    {
+      "label": "C",
+      "expression": "(2,4)"
+    },
+    {
+      "label": "tri",
+      "expression": "Polygon(A,B,C)"
+    },
+    {
+      "label": "M",
+      "expression": "Midpoint(A,B)"
+    },
+    {
+      "label": "CM",
+      "expression": "Segment(C,M)"
+    }
+  ],
+  "styles": [
+    {
+      "label": "M",
+      "requirement": "appearance",
+      "color": "#FF0000",
+      "labelVisible": true
+    },
+    {
+      "label": "CM",
+      "requirement": "appearance",
+      "color": "#FF0000"
+    },
+    {
+      "label": "A",
+      "requirement": "appearance",
+      "labelVisible": true
+    },
+    {
+      "label": "B",
+      "requirement": "appearance",
+      "labelVisible": true
+    },
+    {
+      "label": "C",
+      "requirement": "appearance",
+      "labelVisible": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "pointA",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "A",
+      "type": "point",
+      "parents": [],
+      "coordinates": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "pointB",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "B",
+      "type": "point",
+      "parents": [],
+      "coordinates": [
+        6,
+        0
+      ]
+    },
+    {
+      "id": "pointC",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "C",
+      "type": "point",
+      "parents": [],
+      "coordinates": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "triangle",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "tri",
+      "type": "triangle",
+      "parents": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "midpoint",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "M",
+      "type": "point",
+      "parents": [
+        "A",
+        "B"
+      ],
+      "coordinates": [
+        3,
+        0
+      ]
+    },
+    {
+      "id": "median",
+      "requirement": "geometry",
+      "kind": "object",
+      "label": "CM",
+      "type": "segment",
+      "parents": [
+        "C",
+        "M"
+      ]
+    },
+    {
+      "id": "midpointRelation",
+      "requirement": "geometry",
+      "kind": "boolean",
+      "expression": "AreEqual(M,Midpoint(A,B))"
+    },
+    {
+      "id": "nondegenerate",
+      "requirement": "geometry",
+      "kind": "boolean",
+      "expression": "Area(tri)>0"
+    }
+  ],
+  "view": [
+    -2,
+    8,
+    -2,
+    6
+  ],
+  "outputs": [
+    "A",
+    "B",
+    "C",
+    "tri",
+    "M",
+    "CM"
+  ],
+  "interactions": []
+}

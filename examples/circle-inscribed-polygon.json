@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 2,
+  "title": "Circle with inscribed regular n-gon slider",
+  "source": "画一个圆，并在圆内作一个内接正多边形。",
+  "choices": [
+    "演示选择：O=(0,0)，半径 2，A=(2,0) 是圆上一点。",
+    "演示选择：n=Slider(3,12,1,1,200,false,true,false,false)，边数 n 由滑块控制；滑块初值为最小值 3，范围 3–12 是演示选择。",
+    "B=Rotate(A,2*pi/n,O)，使 AB 随 n 保持为圆内接正 n 边形的一边。"
+  ],
+  "requirements": [
+    {
+      "id": "circle",
+      "description": "以 O 为圆心、经过 A 的圆 c 存在，半径与演示选择一致。"
+    },
+    {
+      "id": "inscribed",
+      "description": "正多边形的每个顶点都落在圆 c 上；当前滑块值为 n=3。"
+    },
+    {
+      "id": "regular",
+      "description": "poly 是由 A、B 和滑块 n 确定的正多边形，当前三条边等长。"
+    }
+  ],
+  "program": [
+    {
+      "label": "O",
+      "expression": "(0,0)"
+    },
+    {
+      "label": "A",
+      "expression": "(2,0)"
+    },
+    {
+      "label": "c",
+      "expression": "Circle(O,A)"
+    },
+    {
+      "label": "n",
+      "expression": "Slider(3,12,1,1,200,false,true,false,false)"
+    },
+    {
+      "label": "B",
+      "expression": "Rotate(A, 2*pi/n, O)"
+    },
+    {
+      "label": "poly",
+      "expression": "Polygon(A,B,n)"
+    }
+  ],
+  "styles": [],
+  "checks": [
+    {
+      "id": "center",
+      "requirement": "circle",
+      "kind": "object",
+      "label": "O",
+      "type": "point",
+      "parents": [],
+      "coordinates": [0, 0]
+    },
+    {
+      "id": "pointA",
+      "requirement": "circle",
+      "kind": "object",
+      "label": "A",
+      "type": "point",
+      "parents": [],
+      "coordinates": [2, 0]
+    },
+    {
+      "id": "circle",
+      "requirement": "circle",
+      "kind": "object",
+      "label": "c",
+      "type": "circle",
+      "parents": ["O", "A"]
+    },
+    {
+      "id": "radius",
+      "requirement": "circle",
+      "kind": "boolean",
+      "expression": "AreEqual(Radius(c),2)"
+    },
+    {
+      "id": "aOnCircle",
+      "requirement": "circle",
+      "kind": "boolean",
+      "expression": "AreEqual(Distance(O,A),Radius(c))"
+    },
+    {
+      "id": "sides",
+      "requirement": "regular",
+      "kind": "object",
+      "label": "n",
+      "type": "numeric",
+      "parents": []
+    },
+    {
+      "id": "pointB",
+      "requirement": "inscribed",
+      "kind": "object",
+      "label": "B",
+      "type": "point"
+    },
+    {
+      "id": "bOnCircle",
+      "requirement": "inscribed",
+      "kind": "boolean",
+      "expression": "AreEqual(Distance(O,B),Radius(c))"
+    },
+    {
+      "id": "vertex1OnCircle",
+      "requirement": "inscribed",
+      "kind": "boolean",
+      "expression": "AreEqual(Distance(O,Vertex(poly,1)),Radius(c))"
+    },
+    {
+      "id": "vertex2OnCircle",
+      "requirement": "inscribed",
+      "kind": "boolean",
+      "expression": "AreEqual(Distance(O,Vertex(poly,2)),Radius(c))"
+    },
+    {
+      "id": "vertex3OnCircle",
+      "requirement": "inscribed",
+      "kind": "boolean",
+      "expression": "AreEqual(Distance(O,Vertex(poly,3)),Radius(c))"
+    },
+    {
+      "id": "polygon",
+      "requirement": "regular",
+      "kind": "object",
+      "label": "poly",
+      "type": "polygon",
+      "parents": ["A", "B", "n"]
+    },
+    {
+      "id": "side1",
+      "requirement": "regular",
+      "kind": "boolean",
+      "expression": "AreEqual(Distance(Vertex(poly,1),Vertex(poly,2)),Distance(Vertex(poly,2),Vertex(poly,3)))"
+    },
+    {
+      "id": "side2",
+      "requirement": "regular",
+      "kind": "boolean",
+      "expression": "AreEqual(Distance(Vertex(poly,2),Vertex(poly,3)),Distance(Vertex(poly,3),Vertex(poly,1)))"
+    }
+  ],
+  "view": [-3, 3, -3, 3],
+  "outputs": ["O", "A", "c", "n", "B", "poly"],
+  "interactions": []
+}

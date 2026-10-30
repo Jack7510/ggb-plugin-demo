@@ -1,0 +1,12 @@
+output/
+node_modules/
+dist/
+.runtime/
+.runtime-*/
+.pnpm-store/
+.DS_Store
+*.tsbuildinfo
+
+.setup/
+.env
+.archify/
